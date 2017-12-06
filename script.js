@@ -37,19 +37,42 @@ const movies = [
 // });
 
 
-// const MovieTitle = ReactClass({
-//   render: function () {
-//     const posters = this.props.movies.map(function(movie) {
-//     return React.createElement('li', {key: movie.id},
-//             React.createElement('h2', {}, movie.title),
-//             React.createElement('p', {}, movie.desc),
-//             React.createElement('img', {src: movie.poster}))
-//   })
-//   return (
-//     React.createElement('ul', {}, posters)
-//   )
-// }
-// })
+const MovieTitle = React.createClass({
+  propTypes: {
+    title: React.PropTypes.string.isRequired,
+  },
+
+  render: function () {
+    return (
+      React.createElement('h2', {}, this.props.title)
+    )
+  }
+})
+
+const MovieDescription = React.createClass({
+  propTypes: {
+    desc: React.PropTypes.string.isRequired,
+  },
+
+  render: function () {
+    return (
+      React.createElement('p', {}, this.props.desc)
+    )
+  }
+})
+
+
+const MoviePoster = React.createClass({
+  propTypes: {
+    src: React.PropTypes.string.isRequired,
+  },
+
+  render: function () {
+    return (
+      React.createElement('img', {src: this.props.src})
+    )
+  }
+})
 
 const Movie = React.createClass({
   propTypes: {
@@ -57,14 +80,13 @@ const Movie = React.createClass({
   },
 
   render: function () {
-      const posters = this.props.movies.map(function(movie) {
-      return React.createElement('li', {key: movie.id},
-              React.createElement('h2', {}, movie.title),
-              React.createElement('p', {}, movie.desc),
-              React.createElement('img', {src: movie.poster}))
-    })
     return (
-      React.createElement('ul', {}, posters)
+      React.createElement('ul', {}, this.props.movies.map(function(movie) {
+        return React.createElement('li', {key: movie.id},
+                React.createElement(MovieTitle, {title: movie.title}),
+                React.createElement(MovieDescription, {desc: movie.desc}),
+                React.createElement(MoviePoster, {src: movie.poster}))
+      }))
     )
   }
 })
