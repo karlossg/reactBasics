@@ -37,17 +37,34 @@ const movies = [
 // });
 
 
+// const MovieTitle = ReactClass({
+//   render: function () {
+//     const posters = this.props.movies.map(function(movie) {
+//     return React.createElement('li', {key: movie.id},
+//             React.createElement('h2', {}, movie.title),
+//             React.createElement('p', {}, movie.desc),
+//             React.createElement('img', {src: movie.poster}))
+//   })
+//   return (
+//     React.createElement('ul', {}, posters)
+//   )
+// }
+// })
+
 const Movie = React.createClass({
+  propTypes: {
+    movies: React.PropTypes.array.isRequired,
+  },
+
   render: function () {
-    const posters = this.props.movies.map(function(movie) {
-      return React.createElement('img', {src: movie.poster})      
+      const posters = this.props.movies.map(function(movie) {
+      return React.createElement('li', {key: movie.id},
+              React.createElement('h2', {}, movie.title),
+              React.createElement('p', {}, movie.desc),
+              React.createElement('img', {src: movie.poster}))
     })
-    console.log(posters)
     return (
-      React.createElement('div', {},
-        React.createElement('h2', {}, this.props.movies.name),
-        React.createElement('div', {}, posters)
-      )
+      React.createElement('ul', {}, posters)
     )
   }
 })
@@ -73,7 +90,6 @@ const Movie = React.createClass({
 //   },
   
 // });
-
 
 
 const element = React.createElement(Movie, {movies: movies});
