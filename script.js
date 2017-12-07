@@ -1,3 +1,12 @@
+const IncrementButton = React.createClass({
+    render: function() {
+        console.log(this.props.increment)
+      return React.createElement('button', {}, '+')
+      
+    }
+})
+
+
 const Counter = React.createClass({
     getInitialState: function() {
         return {
@@ -11,9 +20,15 @@ const Counter = React.createClass({
         });
     },
 
+    decrement: function() {
+        this.setState({
+            counter: this.state.counter -1
+        });
+    },
     render: function() {
-        return React.createElement('div', {onClick: this.increment},
-            React.createElement('span', {className: 'counter'}, 'Licznik ' + this.state.counter)
+        return React.createElement('div', {},
+            React.createElement('span', {className: 'counter'}, 'Licznik ' + this.state.counter),
+            React.createElement(IncrementButton, {onClick: function() {this.increment}} )
         );
     }
 });
