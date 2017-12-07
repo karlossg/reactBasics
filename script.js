@@ -5,7 +5,6 @@ const Counter1 = React.createClass({
         };
     },
    
-
     increment: function() {
         this.setState({
             counter: this.state.counter + 1
@@ -18,10 +17,46 @@ const Counter1 = React.createClass({
         });
     },
 
-    ComponentWillMount() {
-        console.log(this.state.counter)
+    componentWillMount() {
+        this.setState({
+            counter: 100
+        });
     },
     
+    componentDidMount() {
+         this.timerID = setInterval(
+            () => {
+              if (this.state.counter > 0) {
+                  this.decrement();
+              }  
+            },
+            3000
+          );
+    },
+    
+    shouldComponentUpdate(nextProps, nextState) {
+        if (this.state.counter !== nextState.counter) {
+            console.log('true')
+            return true;
+        }
+        console.log('false')
+        return false;
+    },
+
+    componentWillUpdate() {
+        console.log('counter will update')
+    },
+
+    componentDidUpdate() {
+       const hello = React.createElement('h1',{}, 'HELLO')
+       ReactDOM.render(hello, document.getElementById('hello'));
+    },
+
+    componentWillUnmount() {
+        clearInterval(this.timerID);
+        console.log('The End')
+    },
+
     render: function() {
         return React.createElement('div', {},
             React.createElement('span', {className: 'counter'}, 'Licznik ' + this.state.counter),
@@ -50,6 +85,23 @@ const Counter2 = React.createClass({
         this.setState({
             counter: this.state.counter -1
         });
+    },
+
+    componentWillMount() {
+        this.setState({
+            counter: -100
+        });
+    },
+    
+    componentDidMount() {
+         this.timerID = setInterval(
+            () => {
+              if (this.state.counter < 0) {
+                  this.increment();
+              }  
+            },
+            1000
+          );
     },
     render: function() {
         return React.createElement('div', {},
